@@ -11,11 +11,10 @@ terraform {
     }
   }
 
-
- backend "s3" {
-      bucket = "backend-module-bucket-mod-project-apr2026"
-      key    = "terraform.tfstate"
-      region = "ap-south-1"
-      use_lockfile = true #lockfile
-    }
-}
+#  backend "s3" {
+#       bucket = "backend-module-bucket-mod-project-apr2026"
+#       key    = "terraform.tfstate"
+#       region = "ap-south-1"
+#       use_lockfile = true #lockfile
+#     }
+ }
