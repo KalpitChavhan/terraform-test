@@ -1,22 +1,18 @@
-resource "aws_key_pair" "keypair" {
+  resource "aws_key_pair" "keypair" {
     key_name = "${var.env}-keypair"
-    public_key = file("E:/edu/terraform/terraform-aws-infra/modules/keypair.pub")
+    public_key = file(var.public_key_path)
 
     tags = {
         environment = var.env
+        Name = "${var.env}-keypair"
     }
 }
 
-resource "aws_default_vpc" "default" {
-    tags = {
-        Name = "Default"
-    }   
-}
 
 resource "aws_security_group" "sg" {
   name        = "${var.env}-security-group-module"
   description = "security group for module"
-  vpc_id      = aws_default_vpc.default.id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 22
@@ -49,7 +45,8 @@ resource "aws_instance" "module_instance" {
     count           = var.ec2_number
     ami             = var.ami_id
     instance_type   = var.instance_type
-    security_groups = [aws_security_group.sg.name]
+    subnet_id       = var.subnet_ids[0]
+    vpc_security_group_ids = [aws_security_group.sg.id]
 
     root_block_device {
         volume_size = var.env == "prod" ? 20 : 10
@@ -57,7 +54,7 @@ resource "aws_instance" "module_instance" {
     }
 
     tags = {
-        Name = "${var.env}-instance"
+        Name = "${var.env}-instance-${count.index}"
         Environment = var.env
     }
 }

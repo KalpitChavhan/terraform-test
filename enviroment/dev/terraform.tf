@@ -15,7 +15,7 @@ terraform {
       bucket = "backend-module-bucket-mod-project-apr2026"
       key    = "dev/terraform.tfstate"
       region = "ap-south-1"
-      use_lockfile = true #lockfile
+      #use_lockfile = true #lockfile
       #dynamodb_table = "terraform-lock"
     }
  }
