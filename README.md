@@ -117,6 +117,7 @@ terraform apply
 
 * Auto Scaling Group (ASG)
 * NAT Gateway for private subnets
+* add EC2 to private subnets along with RDSs, and keeping ALB to internet facing
 * CI/CD (GitHub Actions)
 * Secrets Manager integration
 * Monitoring with CloudWatch
